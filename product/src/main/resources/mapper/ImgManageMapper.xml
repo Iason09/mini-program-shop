@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.caih.durianman.platform.internationalmaster.mapper.ImgManageMapper">
+  <resultMap id="BaseResultMap" type="com.caih.durianman.platform.internationalmaster.data.entity.ImgManage">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="IMG_URL" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="JUMP_LINK" jdbcType="VARCHAR" property="jumpLink" />
+    <result column="IMG_TYPE" jdbcType="DECIMAL" property="imgType" />
+    <result column="PRIORITY" jdbcType="DECIMAL" property="priority" />
+    <result column="PAGE_SORT" jdbcType="DECIMAL" property="pageSort" />
+    <result column="MODULE_SORT" jdbcType="DECIMAL" property="moduleSort" />
+    <result column="DELETE_FLAG" jdbcType="DECIMAL" property="deleteFlag" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, IMG_URL, JUMP_LINK, IMG_TYPE, PRIORITY, PAGE_SORT, MODULE_SORT, DELETE_FLAG, 
+    CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from IMG_MANAGE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from IMG_MANAGE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.caih.durianman.platform.internationalmaster.data.entity.ImgManage">
+    insert into IMG_MANAGE (ID, IMG_URL, JUMP_LINK, 
+      IMG_TYPE, PRIORITY, PAGE_SORT, 
+      MODULE_SORT, DELETE_FLAG, CREATE_TIME, 
+      UPDATE_TIME)
+    values (#{id,jdbcType=DECIMAL}, #{imgUrl,jdbcType=VARCHAR}, #{jumpLink,jdbcType=VARCHAR}, 
+      #{imgType,jdbcType=DECIMAL}, #{priority,jdbcType=DECIMAL}, #{pageSort,jdbcType=DECIMAL}, 
+      #{moduleSort,jdbcType=DECIMAL}, #{deleteFlag,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.caih.durianman.platform.internationalmaster.data.entity.ImgManage">
+    insert into IMG_MANAGE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="imgUrl != null">
+        IMG_URL,
+      </if>
+      <if test="jumpLink != null">
+        JUMP_LINK,
+      </if>
+      <if test="imgType != null">
+        IMG_TYPE,
+      </if>
+      <if test="priority != null">
+        PRIORITY,
+      </if>
+      <if test="pageSort != null">
+        PAGE_SORT,
+      </if>
+      <if test="moduleSort != null">
+        MODULE_SORT,
+      </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jumpLink != null">
+        #{jumpLink,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null">
+        #{imgType,jdbcType=DECIMAL},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=DECIMAL},
+      </if>
+      <if test="pageSort != null">
+        #{pageSort,jdbcType=DECIMAL},
+      </if>
+      <if test="moduleSort != null">
+        #{moduleSort,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null">
+        #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.caih.durianman.platform.internationalmaster.data.entity.ImgManage">
+    update IMG_MANAGE
+    <set>
+      <if test="imgUrl != null">
+        IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="jumpLink != null">
+        JUMP_LINK = #{jumpLink,jdbcType=VARCHAR},
+      </if>
+      <if test="imgType != null">
+        IMG_TYPE = #{imgType,jdbcType=DECIMAL},
+      </if>
+      <if test="priority != null">
+        PRIORITY = #{priority,jdbcType=DECIMAL},
+      </if>
+      <if test="pageSort != null">
+        PAGE_SORT = #{pageSort,jdbcType=DECIMAL},
+      </if>
+      <if test="moduleSort != null">
+        MODULE_SORT = #{moduleSort,jdbcType=DECIMAL},
+      </if>
+      <if test="deleteFlag != null">
+        DELETE_FLAG = #{deleteFlag,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.caih.durianman.platform.internationalmaster.data.entity.ImgManage">
+    update IMG_MANAGE
+    set IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+      JUMP_LINK = #{jumpLink,jdbcType=VARCHAR},
+      IMG_TYPE = #{imgType,jdbcType=DECIMAL},
+      PRIORITY = #{priority,jdbcType=DECIMAL},
+      PAGE_SORT = #{pageSort,jdbcType=DECIMAL},
+      MODULE_SORT = #{moduleSort,jdbcType=DECIMAL},
+      DELETE_FLAG = #{deleteFlag,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

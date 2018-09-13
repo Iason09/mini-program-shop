@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
+
 /**
  * Created by Iason on 2018/9/11.
  */
@@ -19,8 +21,8 @@ public class FdfsController {
 	@Autowired
 	private FdfsService fdfsService;
 
-	@PostMapping(value = "/upload")
-	public String upload (MultipartFile file) {
+	@RequestMapping(value = "/upload", method = RequestMethod.POST, consumes = MULTIPART_FORM_DATA_VALUE)
+	public String upload (@RequestPart("file") MultipartFile file) {
 		String imgUrl = fdfsService.uploadFile(file);
 		JSONObject res = new JSONObject();
 		JSONObject body = new JSONObject();
@@ -35,7 +37,7 @@ public class FdfsController {
 		return JSONObject.toJSONString(res);
 	}
 
-	@GetMapping(value = "/delete")
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete (@RequestParam String path) {
 		Boolean r = fdfsService.deleteFile(path);
 		JSONObject res = new JSONObject();

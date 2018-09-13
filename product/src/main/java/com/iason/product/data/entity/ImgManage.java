@@ -1,10 +1,12 @@
 package com.iason.product.data.entity;
 
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "IMG_MANAGE")
-public class ImgManage extends BaseEntity {
+public class ImgManage {
+    @Id
+    private Integer id;
 
     private String imgUrl;
 
@@ -23,6 +25,14 @@ public class ImgManage extends BaseEntity {
     private Date createTime;
 
     private Date updateTime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getImgUrl() {
         return imgUrl;

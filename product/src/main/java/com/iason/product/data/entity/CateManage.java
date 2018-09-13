@@ -1,9 +1,11 @@
 package com.iason.product.data.entity;
 
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 @Table(name = "CATE_MANAGE")
-public class CateManage extends BaseEntity {
+public class CateManage {
+    @Id
+    private Integer id;
 
     private String cateName;
 
@@ -22,6 +24,14 @@ public class CateManage extends BaseEntity {
     private Date updateTime;
 
     private Short deleteFlag;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getCateName() {
         return cateName;

@@ -75,7 +75,7 @@ public class IndexController {
 	/**
 	 * 更新图片
 	 */
-	@RequestMapping(value = "/updateImg", method = RequestMethod.POST)
+	@PostMapping(value = "/updateImg")
 	public UnifyRespModel updateImg(@RequestBody ImgManage imgManage) {
 		log.info("updateImg入参：" + JSON.toJSONString(imgManage));
 		ErrorEnum result;
@@ -111,7 +111,7 @@ public class IndexController {
 	/**
 	 * 获取图片数组
 	 */
-	@RequestMapping(value = "/getImgs", method = RequestMethod.GET)
+	@GetMapping(value = "/getImgs")
 	public UnifyRespModel getImgs(@RequestParam Short pageSort,
 									  @RequestParam Short moduleSort) {
 		log.info("入参：pageSort={},moduleSort=" + pageSort, moduleSort);
@@ -132,21 +132,21 @@ public class IndexController {
 	}
 
 	private ErrorEnum inputCheck(ImgManage imgManage) {
-		String link = imgManage.getJumpLink();
-		Short module = imgManage.getModuleSort();
-		Short type = imgManage.getImgType();
+		String jumpLink = imgManage.getJumpLink();
+		Short moduleSort = imgManage.getModuleSort();
+		Short imgType = imgManage.getImgType();
 		Long priority = imgManage.getPriority();
-		Short sort = imgManage.getPageSort();
-		if (link == null || link.isEmpty()) {
+		Short pageSort = imgManage.getPageSort();
+		if (jumpLink == null || jumpLink.isEmpty()) {
 			return JUMP_LINK_IS_NULL;
-		} else if (module == null) {
-			return MODULE_SORT_IS_NULL;
-		} else if (type == null) {
-			return IMG_TYPE_IS_NULL;
+		} else if (moduleSort == null) {
+			return TYPE_IS_NULL;
+		} else if (imgType == null) {
+			return TYPE_IS_NULL;
 		} else if (priority == null) {
 			return PRIORITY_IS_NULL;
-		} else if (sort == null) {
-			return PAGE_SORT_IS_NULL;
+		} else if (pageSort == null) {
+			return TYPE_IS_NULL;
 		}
 		return null;
 	}

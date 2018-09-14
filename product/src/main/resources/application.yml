@@ -3,3 +3,6 @@ server:
 logging:
   level:
     com.iason.product.mapper: trace
+spring:
+  jackson:
+    default-property-inclusion: non_null  #jackson实体转json时,属性为null不参加序列化

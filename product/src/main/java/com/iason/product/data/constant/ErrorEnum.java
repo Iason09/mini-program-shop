@@ -8,12 +8,14 @@ public enum ErrorEnum {
 	//入参错误
 	PARAM_ERROR_DEFAULT("001", "入参错误"),
 	JUMP_LINK_IS_NULL("002", "跳转链接不能为空"),
-	MODULE_SORT_IS_NULL("003", "模块分类不能为空"),
-	IMG_TYPE_IS_NULL("004", "类型不能为空"),
+	PARENT_ID_IS_NULL("003", "父分类id不能为空"),
+	TYPE_IS_NULL("004", "类型不能为空"),
 	PRIORITY_IS_NULL("005", "优先级不能为空"),
-	PAGE_SORT_IS_NULL("006", "页面分类不能为空"),
+	NAMR_IS_NULL("006", "名称不能为空"),
 	PARAM_PARSE_ERROR("007", "入参解析错误"),
 	ID_IS_NULL("008", "id不能为空"),
+	URL_IS_NULL("009", "url不能为空"),
+
 
 	//数据库错误
 	INSERT_FAIL("101", "插入数据失败"),

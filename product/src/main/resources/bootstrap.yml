@@ -1,6 +1,6 @@
 spring:
   application:
-    name: mini-program-shop-product    # 对应config server所获取的配置文件的{application}
+    name: product    # 对应config server所获取的配置文件的{application}
   cloud:
     config:
       profile: default            # profile对应config server所获取的配置文件中的{profile}

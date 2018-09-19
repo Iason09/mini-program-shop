@@ -113,7 +113,7 @@ public class CateController {
 	 */
 	@GetMapping(value = "/getCates")
 	public UnifyRespModel getCates(@RequestParam Short parentId) {
-		log.info("getCates入参：parentId={}" + parentId);
+		log.info("getCates入参：parentId = " + parentId);
 		Example example = new Example(CateManage.class);
 		Example.Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("deleteFlag", 0);

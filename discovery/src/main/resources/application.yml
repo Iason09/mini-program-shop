@@ -1,5 +1,8 @@
 server:
   port: 8761                    # 指定该Eureka实例的端口
+spring:
+  application:
+    name: discovery
 eureka:
   client:
     registerWithEureka: false

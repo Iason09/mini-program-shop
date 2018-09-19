@@ -114,7 +114,7 @@ public class IndexController {
 	@GetMapping(value = "/getImgs")
 	public UnifyRespModel getImgs(@RequestParam Short pageSort,
 									  @RequestParam Short moduleSort) {
-		log.info("入参：pageSort={},moduleSort=" + pageSort, moduleSort);
+		log.info("入参：pageSort = " + pageSort + ", moduleSort = " + moduleSort);
 		Example example = new Example(ImgManage.class);
 		Example.Criteria criteria = example.createCriteria();
 		criteria.andEqualTo("deleteFlag", 0);

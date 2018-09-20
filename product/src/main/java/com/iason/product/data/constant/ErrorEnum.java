@@ -20,7 +20,8 @@ public enum ErrorEnum {
 	//数据库错误
 	INSERT_FAIL("101", "插入数据失败"),
 	UPDATE_FAIL("102" , "更新数据失败"),
-	DATA_NON_EXISTENT("103" , "数据不存在"),
+	DELETE_FAIL("103" , "删除数据失败"),
+	DATA_NON_EXISTENT("104" , "数据不存在"),
 
 	//系统错误
 	FEIGN_RETURN_FAIL("901", "feign调用返回失败")

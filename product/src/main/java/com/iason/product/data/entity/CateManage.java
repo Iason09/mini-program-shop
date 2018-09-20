@@ -9,7 +9,7 @@ public class CateManage {
 
     private String cateName;
 
-    private Short parentId;
+    private Integer parentId;
 
     private String cateImg;
 
@@ -41,11 +41,11 @@ public class CateManage {
         this.cateName = cateName == null ? null : cateName.trim();
     }
 
-    public Short getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(Short parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 

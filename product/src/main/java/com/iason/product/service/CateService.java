@@ -32,7 +32,11 @@ public class CateService {
 		return cateManageMapper.insertSelective(cateManage);
 	}
 
-	public int update (CateManage cateManage) {
+	public int updateByPrimaryKey (CateManage cateManage) {
 		return cateManageMapper.updateByPrimaryKeySelective(cateManage);
+	}
+
+	public int updateByExample (CateManage cateManage, Example example) {
+		return cateManageMapper.updateByExampleSelective(cateManage, example);
 	}
 }

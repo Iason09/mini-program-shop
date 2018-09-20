@@ -10,3 +10,9 @@ eureka:
 management:
   security:
     enabled: false
+hystrix:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000  #命令执行超时时间，默认1000m

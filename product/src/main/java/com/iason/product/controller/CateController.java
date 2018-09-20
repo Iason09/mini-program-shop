@@ -80,32 +80,70 @@ public class CateController {
 		log.info("updateCate入参：" + JSON.toJSONString(cateManage));
 		ErrorEnum result;
 		if (cateManage.getId() == null) {
-			result = ID_IS_NULL;
+			return respUtil.respFail(ID_IS_NULL);
 		} else {
-			CateManage oldCate = cateService.getOneCateByPrimaryKey(cateManage.getId());
-			if (oldCate != null) {
-				Date date = new Date();
-				cateManage.setUpdateTime(date);
-				int r = cateService.update(cateManage);
-				if (r == 1) {
-					if (cateManage.getDeleteFlag() != null && cateManage.getDeleteFlag() == 1) {
-						//删除服务器图片
-						String uploadRes = commonFeignClient.delete(oldCate.getCateImg());
-						if (JSON.parseObject(uploadRes).getBoolean("success")) {
-							log.info("删除图片成功，url= " + oldCate.getCateImg());
+			Date date = new Date();
+
+			if (cateManage.getDeleteFlag() != null && cateManage.getDeleteFlag() == 1) {		//删除分类
+				List<Integer> parentIdList = new ArrayList<>();
+				List<Integer> childIdList = new ArrayList<>();
+				parentIdList.add(cateManage.getId());
+				while (true) {
+					childIdList.clear();
+					for (Integer parentId : parentIdList) {
+						CateManage c = new CateManage();
+						c.setId(parentId);
+						c.setUpdateTime(date);
+						c.setDeleteFlag((short) 1);
+						int r = cateService.updateByPrimaryKey(c);
+						if (r == 1) {
+							CateManage oldCate = cateService.getOneCateByPrimaryKey(parentId);
+							if (oldCate != null) {
+								//删除服务器图片
+								String uploadRes = commonFeignClient.delete(oldCate.getCateImg());
+								if (JSON.parseObject(uploadRes).getBoolean("success")) {
+									log.info("删除图片成功，url= " + oldCate.getCateImg());
+								} else {
+									log.error("删除图片失败，url= " + oldCate.getCateImg());
+								}
+
+								//查找子分类
+								Example example = new Example(CateManage.class);
+								Example.Criteria criteria = example.createCriteria();
+								criteria.andEqualTo("parentId", parentId);
+								criteria.andEqualTo("deleteFlag", 0);
+								List<CateManage> cateManageList = cateService.getCateListByExample(example);
+								if (cateManageList.isEmpty()) {
+									break;
+								} else {
+									for (CateManage cate : cateManageList) {
+										childIdList.add(cate.getId());
+									}
+								}
+							}
 						} else {
-							log.error("删除图片失败，url= " + oldCate.getCateImg());
+							log.error("删除分类失败，id = " + cateManage.getId());
+							return respUtil.respFail(DELETE_FAIL);
 						}
 					}
+					if (!childIdList.isEmpty()) {
+						parentIdList.clear();
+						parentIdList.addAll(childIdList);
+					} else {
+						break;
+					}
+				}
+				return respUtil.respOk("删除分类成功");
+			} else {	//更新分类
+				cateManage.setUpdateTime(date);
+				int r = cateService.updateByPrimaryKey(cateManage);
+				if (r == 1) {
 					return respUtil.respOk("更新分类成功");
 				} else {
-					result = UPDATE_FAIL;
+					return respUtil.respFail(UPDATE_FAIL);
 				}
-			} else {
-				result = DATA_NON_EXISTENT;
 			}
 		}
-		return respUtil.respFail(result);
 	}
 
 	/**
@@ -131,7 +169,7 @@ public class CateController {
 
 	private ErrorEnum inputCheck(CateManage cateManage) {
 		String cateImg = cateManage.getCateImg();
-		Short parentId = cateManage.getParentId();
+		Integer parentId = cateManage.getParentId();
 		Integer priority = cateManage.getPriority();
 		String cateName = cateManage.getCateName();
 		if (cateImg == null || cateImg.isEmpty()) {

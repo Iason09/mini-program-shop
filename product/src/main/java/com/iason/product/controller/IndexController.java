@@ -41,7 +41,7 @@ public class IndexController {
 	 * 添加图片
 	 */
 	@PostMapping(value = "/addImg")
-	public UnifyRespModel addImg(String param, MultipartFile file) {
+	public UnifyRespModel addImg(String param, @RequestPart MultipartFile file) {
 		log.info("addImg入参：" + param);
 		ImgManage imgManage = JSON.parseObject(param, ImgManage.class);
 		if (imgManage == null) {
@@ -113,7 +113,7 @@ public class IndexController {
 	 */
 	@GetMapping(value = "/getImgs")
 	public UnifyRespModel getImgs(@RequestParam Short pageSort,
-									  @RequestParam Short moduleSort) {
+								  @RequestParam Short moduleSort) {
 		log.info("入参：pageSort = " + pageSort + ", moduleSort = " + moduleSort);
 		Example example = new Example(ImgManage.class);
 		Example.Criteria criteria = example.createCriteria();
@@ -137,7 +137,7 @@ public class IndexController {
 		Short imgType = imgManage.getImgType();
 		Long priority = imgManage.getPriority();
 		Short pageSort = imgManage.getPageSort();
-		if (jumpLink == null || jumpLink.isEmpty()) {
+		if (jumpLink.isEmpty()) {
 			return JUMP_LINK_IS_NULL;
 		} else if (moduleSort == null) {
 			return TYPE_IS_NULL;

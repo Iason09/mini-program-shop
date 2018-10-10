@@ -1,0 +1,8 @@
+server:
+  port: 8085
+logging:
+  level:
+    com.iason.account.mapper: trace
+spring:
+  jackson:
+    default-property-inclusion: non_null  #jackson实体转json时,属性为null不参加序列化

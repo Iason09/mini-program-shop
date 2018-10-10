@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iason.account.mapper.UserManageMapper">
+  <resultMap id="BaseResultMap" type="com.iason.account.data.entity.UserManage">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="NICKNAME" jdbcType="VARCHAR" property="nickname" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="AVATAR_URL" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="PHONE_NUM" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="USER_TYPE" jdbcType="DECIMAL" property="userType" />
+    <result column="USER_STATUS" jdbcType="DECIMAL" property="userStatus" />
+    <result column="OPEN_ID" jdbcType="VARCHAR" property="openId" />
+    <result column="SESSION_KEY" jdbcType="VARCHAR" property="sessionKey" />
+    <result column="GENDER" jdbcType="DECIMAL" property="gender" />
+    <result column="PROVINCE" jdbcType="VARCHAR" property="province" />
+    <result column="CITY" jdbcType="VARCHAR" property="city" />
+    <result column="COUNTRY" jdbcType="VARCHAR" property="country" />
+  </resultMap>
+</mapper>

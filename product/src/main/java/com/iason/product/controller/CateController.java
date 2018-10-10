@@ -41,7 +41,7 @@ public class CateController {
 	 * 添加分类
 	 */
 	@PostMapping(value = "/addCate")
-	public UnifyRespModel addCate(String param, MultipartFile file) {
+	public UnifyRespModel addCate(String param, @RequestPart MultipartFile file) {
 		log.info("addCate入参：" + param);
 		CateManage cateManage = JSON.parseObject(param, CateManage.class);
 		if (cateManage == null) {
@@ -78,7 +78,6 @@ public class CateController {
 	@PostMapping(value = "/updateCate")
 	public UnifyRespModel updateCate(@RequestBody CateManage cateManage) {
 		log.info("updateCate入参：" + JSON.toJSONString(cateManage));
-		ErrorEnum result;
 		if (cateManage.getId() == null) {
 			return respUtil.respFail(ID_IS_NULL);
 		} else {
@@ -172,14 +171,14 @@ public class CateController {
 		Integer parentId = cateManage.getParentId();
 		Integer priority = cateManage.getPriority();
 		String cateName = cateManage.getCateName();
-		if (cateImg == null || cateImg.isEmpty()) {
+		if (cateImg.isEmpty()) {
 			return URL_IS_NULL;
 		} else if (parentId == null) {
 			return PARENT_ID_IS_NULL;
 		} else if (priority == null) {
 			return PRIORITY_IS_NULL;
 		} else if (cateName == null) {
-			return NAMR_IS_NULL;
+			return NAME_IS_NULL;
 		}
 		return null;
 	}

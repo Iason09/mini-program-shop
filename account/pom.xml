@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>common</artifactId>
+	<artifactId>account</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>common</name>
+	<name>account</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -65,20 +65,22 @@
 			<artifactId>spring-cloud-starter-feign</artifactId>
 		</dependency>
 		<!--总线更新配置end-->
-		<!--fastdfs配置start-->
+		<!--数据源相关配置start-->
 		<dependency>
-			<groupId>com.github.tobato</groupId>
-			<artifactId>fastdfs-client</artifactId>
-			<version>1.25.2-RELEASE</version>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
 		</dependency>
-		<!--fastdfs配置end-->
-		<!--OkHttp start-->
+
 		<dependency>
-			<groupId>com.squareup.okhttp</groupId>
-			<artifactId>okhttp</artifactId>
-			<version>2.5.0</version>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
 		</dependency>
-		<!--OkHttp end-->
+
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper-spring-boot-starter</artifactId>
+		</dependency>
+		<!--数据源相关配置end-->
 	</dependencies>
 
 	<build>
@@ -89,5 +91,6 @@
 			</plugin>
 		</plugins>
 	</build>
+
 
 </project>

@@ -1,4 +1,4 @@
-package com.iason.product.data.constant;
+package com.iason.account.data.constant;
 
 /**
  * Created by Iason on 2018/9/12.
@@ -18,6 +18,7 @@ public enum ErrorEnum {
 	CATE_ID_IS_NULL("010", "分类id不能为空"),
 	PRICE_IS_NULL("011", "价格不能为空"),
 	STOCK_NUM_IS_NULL("012", "库存不能为空"),
+	SALE_NUM_IS_NULL("013", "销量不能为空"),
 
 	//数据库错误
 	INSERT_FAIL("101", "插入数据失败"),

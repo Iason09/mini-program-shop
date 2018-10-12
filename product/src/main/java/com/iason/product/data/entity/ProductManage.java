@@ -32,6 +32,8 @@ public class ProductManage {
 
     private String albumUrl;
 
+    private Short deleteFlag;
+
     public Integer getId() {
         return id;
     }
@@ -126,5 +128,13 @@ public class ProductManage {
 
     public void setAlbumUrl(String albumUrl) {
         this.albumUrl = albumUrl == null ? null : albumUrl.trim();
+    }
+
+    public Short getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Short deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 }

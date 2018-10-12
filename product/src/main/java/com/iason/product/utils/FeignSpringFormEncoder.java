@@ -35,7 +35,8 @@ public class FeignSpringFormEncoder extends FormEncoder {
 		super(delegate);
 
 		MultipartFormContentProcessor processor = (MultipartFormContentProcessor) getContentProcessor(ContentType.MULTIPART);
-		processor.addWriter(new SpringSingleMultipartFileWriter());
+//		processor.addWriter(new SpringSingleMultipartFileWriter());
+		processor.addWriter(new FeignSpringSingleMultipartFileWriter());
 		processor.addWriter(new SpringManyMultipartFilesWriter());
 	}
 

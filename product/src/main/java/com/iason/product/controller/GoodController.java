@@ -1,29 +1,21 @@
 package com.iason.product.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.iason.product.data.constant.ErrorEnum;
-import com.iason.product.data.entity.ImgManage;
 import com.iason.product.data.entity.ProductManage;
 import com.iason.product.data.model.UnifyRespModel;
 import com.iason.product.feign.CommonFeignClient;
 import com.iason.product.service.GoodService;
 import com.iason.product.utils.RespUtil;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import static com.iason.product.data.constant.ErrorEnum.*;
-import static com.iason.product.data.constant.ErrorEnum.PRIORITY_IS_NULL;
-import static com.iason.product.data.constant.ErrorEnum.TYPE_IS_NULL;
 
 /**
  * Created by Iason on 2018/9/21.
@@ -42,6 +34,8 @@ public class GoodController {
 
 	@PostMapping(value = "/addGood")
 	public UnifyRespModel addGood(@RequestParam String param,
+								  @RequestPart MultipartFile icon,
+								  @RequestPart MultipartFile desc,
 								  @RequestPart MultipartFile... fileList) {
 		if (fileList.length < 3) {
 			log.error("应至少上传3张图片！");
@@ -54,13 +48,16 @@ public class GoodController {
 		}
 		ErrorEnum result = inputCheck(productManage);
 		if (result == null) {
+			String uploadIconRes = commonFeignClient.upload(icon);
+			String uploadDescRes = commonFeignClient.upload(desc);
 			String uploadRes = commonFeignClient.uploadBatch(fileList);
 			log.info("上传图片list返回：" + uploadRes);
-			if (JSON.parseObject(uploadRes).getBoolean("success")) {
-				String imgUrls = JSON.parseObject(JSON.parseObject(uploadRes).getString("body")).getString("imgUrls");
-				String[] urls = imgUrls.split(",");
-				String iconUrl = urls[0];
-				String desUrl = urls[1];
+			if (JSON.parseObject(uploadIconRes).getBoolean("success") &&
+					JSON.parseObject(uploadDescRes).getBoolean("success") &&
+					JSON.parseObject(uploadRes).getBoolean("success")) {
+				String iconUrl = JSON.parseObject(JSON.parseObject(uploadIconRes).getString("body")).getString("imgUrl");
+				String desUrl = JSON.parseObject(JSON.parseObject(uploadDescRes).getString("body")).getString("imgUrl");
+				String albumUrl = JSON.parseObject(JSON.parseObject(uploadRes).getString("body")).getString("imgUrls");
 
 				Date date = new Date();
 				if (productManage.getSaleNum() == null) {
@@ -68,9 +65,10 @@ public class GoodController {
 				}
 				productManage.setCreateTime(date);
 				productManage.setUpdateTime(date);
+				productManage.setDeleteFlag((short) 0);
 				productManage.setDescriptionUrl(desUrl);
 				productManage.setIconUrl(iconUrl);
-				productManage.setAlbumUrl(imgUrls.substring(iconUrl.length() + desUrl.length() + 2, imgUrls.length()));
+				productManage.setAlbumUrl(albumUrl);
 				int r = goodService.insert(productManage);
 				if (r == 1) {
 					return respUtil.respOk("添加商品成功");

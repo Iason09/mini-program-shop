@@ -99,8 +99,8 @@ public class CateController {
 							CateManage oldCate = cateService.getOneCateByPrimaryKey(parentId);
 							if (oldCate != null) {
 								//删除服务器图片
-								String uploadRes = commonFeignClient.delete(oldCate.getCateImg());
-								if (JSON.parseObject(uploadRes).getBoolean("success")) {
+								String deleteRes = commonFeignClient.delete(oldCate.getCateImg());
+								if (JSON.parseObject(deleteRes).getBoolean("success")) {
 									log.info("删除图片成功，url= " + oldCate.getCateImg());
 								} else {
 									log.error("删除图片失败，url= " + oldCate.getCateImg());

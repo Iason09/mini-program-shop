@@ -69,4 +69,17 @@ public class FdfsController {
 		res.put("success", r);
 		return JSONObject.toJSONString(res);
 	}
+
+	@RequestMapping(value = "/deleteBatch", method = RequestMethod.POST)
+	public String deleteBatch (@RequestParam("path") String path) {
+		String[] urls = StringUtils.split(path, ",");
+		boolean r = false;
+		//删除一张成功则为成功
+		for (String url : urls) {
+			 r |= fdfsService.deleteFile(url);
+		}
+		JSONObject res = new JSONObject();
+		res.put("success", r);
+		return JSONObject.toJSONString(res);
+	}
 }

@@ -48,7 +48,7 @@ public class FdfsService {
 			log.info("删除" + path + "成功");
 			return true;
 		} catch (FdfsServerException e) {
-			log.error("+++ deleteFile：删除文件异常: " + e.getMessage());
+			log.error("+++ deleteFile：删除" + path + "异常: " + e.getMessage());
 			return false;
 		}
 	}

@@ -21,4 +21,7 @@ public interface CommonFeignClient {
 
 	@RequestMapping(value = "/fdfs/delete", method = RequestMethod.POST)
 	String delete (@RequestParam("path") String path);
+
+	@RequestMapping(value = "/fdfs/deleteBatch", method = RequestMethod.POST)
+	String deleteBatch (@RequestParam("path") String path);
 }

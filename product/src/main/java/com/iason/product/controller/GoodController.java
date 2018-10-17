@@ -37,8 +37,8 @@ public class GoodController {
 								  @RequestPart MultipartFile icon,
 								  @RequestPart MultipartFile desc,
 								  @RequestPart MultipartFile... fileList) {
-		if (fileList.length < 3) {
-			log.error("应至少上传3张图片！");
+		if (fileList.length < 1) {
+			log.error("应至少上传1张图片！");
 			return respUtil.respFail(PARAM_ERROR_DEFAULT);
 		}
 		log.info("addGood入参：" + param);
@@ -80,6 +80,36 @@ public class GoodController {
 			}
 		}
 		return respUtil.respFail(result);
+	}
+
+	@PostMapping(value = "/updateGood")
+	public UnifyRespModel updateGood(@RequestParam ProductManage productManage) {
+		log.info("updateGood入参：" + productManage);
+		if (productManage.getId() == null) {
+			return respUtil.respFail(ID_IS_NULL);
+		} else {
+			//删除图片
+			if (productManage.getDeleteFlag() != null && productManage.getDeleteFlag() == 1) {
+				String path = productManage.getIconUrl() + ","
+						+ productManage.getDescriptionUrl() + ","
+						+ productManage.getAlbumUrl();
+				String deleteRes = commonFeignClient.deleteBatch(path);
+				if (JSON.parseObject(deleteRes).getBoolean("success")) {
+					log.info("删除图片成功，url= " + path);
+				} else {
+					log.error("删除图片失败，url= " + path);
+				}
+			}
+			//图片删除成功与否不影响产品删除
+			Date date = new Date();
+			productManage.setUpdateTime(date);
+			int r = goodService.updateByPrimaryKey(productManage);
+			if (r == 1) {
+				return respUtil.respOk("更新产品成功");
+			} else {
+				return respUtil.respFail(UPDATE_FAIL);
+			}
+		}
 	}
 
 	private ErrorEnum inputCheck(ProductManage productManage) {

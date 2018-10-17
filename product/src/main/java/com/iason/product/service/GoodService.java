@@ -17,5 +17,7 @@ public class GoodService {
 	public int insert (ProductManage productManage) {
 		return productManageMapper.insertSelective(productManage);
 	}
-
+	public int updateByPrimaryKey (ProductManage productManage) {
+		return productManageMapper.updateByPrimaryKeySelective(productManage);
+	}
 }
